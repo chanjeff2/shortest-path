@@ -1,25 +1,40 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ThemeProvider } from 'next-themes'
-import { createTheme, ThemeProvider as MuiThemeProvider } from '@mui/material'
+import { createTheme, Theme, ThemeProvider as MuiThemeProvider } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const theme = createTheme({
-    palette: {
-      text: {
-        primary: getComputedStyle(document.documentElement).getPropertyValue('--foreground'),
-        secondary: `rgba(${getComputedStyle(document.documentElement).getPropertyValue('--foreground')}, 0.87)`,
+  const [theme, setTheme] = useState<Theme | null>(null);
+  useEffect(() => {
+    let theme = createTheme({
+      palette: {
+        text: {
+          primary: window.getComputedStyle(document.documentElement).getPropertyValue('--foreground'),
+          secondary: `rgba(${window.getComputedStyle(document.documentElement).getPropertyValue('--foreground')}, 0.87)`,
+        }
       }
-    }
+    })
+    setTheme(theme)
   })
 
-  return (
-    <ThemeProvider>
-      <MuiThemeProvider theme={theme}>
+  if (theme) {
+    return (
+      <ThemeProvider>
+        <MuiThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </MuiThemeProvider>
+      </ThemeProvider>
+    )
+  } else {
+    return (
+      <ThemeProvider>
         <Component {...pageProps} />
-      </MuiThemeProvider>
-    </ThemeProvider>
-  )
+      </ThemeProvider>
+    )
+  }
+
+
 }
 
 export default MyApp
