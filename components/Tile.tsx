@@ -13,10 +13,15 @@ import { Pending } from "../models/Pending";
 
 export interface TileProps {
     cell: Cell,
-    bind: any | null
+    onClick: (cell: Cell) => void,
+    onLongTap: (cell: Cell) => void
 }
 
 export function Tile(props: TileProps): JSX.Element {
+    const bind = useLongPress(() => props.onLongTap(props.cell), {
+        onCancel: (e) => props.onClick(props.cell),
+        threshold: 200
+    })
     return (<div className={`${styles.tile} ${cn({
         [styles.normal]: props.cell.type instanceof Normal,
         [styles.wall]: props.cell.type instanceof Wall,
@@ -26,5 +31,5 @@ export function Tile(props: TileProps): JSX.Element {
         [styles.unprocessed]: props.cell.state instanceof UnProcessed,
         [styles.pending]: props.cell.state instanceof Pending,
         [styles.processed]: props.cell.state instanceof Processed,
-    })}`} {...props.bind} ></div>)
+    })}`} {...bind} ></div>)
 }

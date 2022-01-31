@@ -1,7 +1,5 @@
-import { Normal } from "../models/Normal";
 import { Tile } from "./Tile";
 import styles from "./Board.module.css"
-import { useLongPress } from "use-long-press";
 import { Cell } from "../models/Cell";
 
 export interface BoardProps {
@@ -16,13 +14,9 @@ export function Board(props: BoardProps): JSX.Element {
     for (let row of props.board) {
         let _row: Array<JSX.Element> = [];
         for (let cell of row) {
-            const bind = useLongPress(() => props.onLongTap(cell), {
-                onCancel: (e) => props.onClick(cell),
-                threshold: 200
-            })
-            _row.push(<Tile key={id++} cell={cell} bind={bind} />)
+            _row.push(<Tile key={id++} cell={cell} onClick={props.onClick} onLongTap={props.onLongTap} />)
         }
-        rows.push(<div className={styles.row}>{_row}</div>);
+        rows.push(<div key={id++} className={styles.row}>{_row}</div>);
     }
     return (<div>{rows}</div>)
 }
