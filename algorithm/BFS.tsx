@@ -3,7 +3,7 @@ import { Path } from "../models/Path";
 import { Normal } from "../models/Normal";
 import { Wall } from "../models/Wall";
 import { ShortestPathAlgorithm } from "./ShortestPathAlgorithm";
-import { delay } from "../util";
+import { delay, interval } from "../util";
 
 export class BFS extends ShortestPathAlgorithm {
     name: string = "BFS";
@@ -17,7 +17,7 @@ export class BFS extends ShortestPathAlgorithm {
                 setState(() => {
                     cell.type = new Path();
                 });
-                await delay(200);
+                await delay(interval);
             }
             path.unshift(cell);
             cell = parent[cell.location.row][cell.location.col];
@@ -35,7 +35,7 @@ export class BFS extends ShortestPathAlgorithm {
             setState(() => {
                 cell.markProcessed();
             });
-            await delay(200);
+            await delay(interval);
             let neighbors = this.getNeighbors(cell, board);
             for (let neighbor of neighbors) {
                 if (processed.has(neighbor) || pending.find(e => e == neighbor)) {
@@ -56,7 +56,7 @@ export class BFS extends ShortestPathAlgorithm {
                     return parent;
                 }
                 pending.push(neighbor);
-                await delay(200);
+                await delay(interval);
             }
 
         }
