@@ -18,6 +18,12 @@ import { AStar } from "../algorithm/AStar";
 import { RLTBMove } from "../strategy/RLTBMove";
 import { EightDirectionsMove } from "../strategy/EightDirectionsMove";
 
+class StopInterruptException extends Error {
+    constructor(message?: string) {
+        super(message)
+    }
+}
+
 export interface GameProps {
     rows: number,
     cols: number
@@ -27,7 +33,9 @@ interface GameState {
     board: Cell[][],
     source: Cell | null,
     target: Cell | null,
-    algorithm: ShortestPathAlgorithm
+    algorithm: ShortestPathAlgorithm,
+    isRunning: boolean,
+    stop: boolean,
 }
 
 export class Game extends React.Component<GameProps, GameState> {
@@ -42,7 +50,9 @@ export class Game extends React.Component<GameProps, GameState> {
             board: this.setUpBoard(),
             source: null,
             target: null,
-            algorithm: algorithm
+            algorithm: algorithm,
+            isRunning: false,
+            stop: false,
         }
     }
 
@@ -79,10 +89,29 @@ export class Game extends React.Component<GameProps, GameState> {
         this.setState({ source: cell, board: this.state.board.slice() })
     }
 
-    run: () => void = () => {
-        if (this.state.source && this.state.target) {
-            console.log("Hello World")
-            this.state.algorithm.execute(this.state.board, this.state.source, this.state.target, this.updateUI.bind(this))
+    run: () => void = async () => {
+        if (!this.state.source || !this.state.target) {
+            return
+        }
+        this.reset()
+        this.setState({ isRunning: true })
+        try {
+            await this.state.algorithm.execute(this.state.board, this.state.source, this.state.target, this.updateUI.bind(this))
+        } catch (e) {
+            if (e instanceof StopInterruptException) {
+                this.setState({ stop: false })
+            } else {
+                throw e
+            }
+        }
+        this.setState({ isRunning: false })
+    }
+
+    stop: () => void = () => {
+        if (this.state.isRunning) {
+            this.setState({ stop: true })
+        } else {
+            this.reset()
         }
     }
 
@@ -107,6 +136,9 @@ export class Game extends React.Component<GameProps, GameState> {
     }
 
     updateUI(callback: () => void): void {
+        if (this.state.stop) {
+            throw new StopInterruptException()
+        }
         callback()
         this.setState({})
     }
@@ -114,10 +146,10 @@ export class Game extends React.Component<GameProps, GameState> {
     render(): React.ReactNode {
         return (<div className={styles.game}>
             <div className={styles.toolbar}>
-                <IconButton onClick={this.run} color="inherit"><PlayArrowRoundedIcon fontSize="large" /></IconButton>
-                <IconButton onClick={this.reset} color="inherit"><StopRoundedIcon fontSize="large" /></IconButton>
-                <IconButton onClick={this.clear} color="inherit"><RestartAltRoundedIcon fontSize="large" /></IconButton>
-                <FormControl>
+                <IconButton onClick={this.run} disabled={this.state.isRunning} color="inherit"><PlayArrowRoundedIcon fontSize="large" /></IconButton>
+                <IconButton onClick={this.stop} color="inherit"><StopRoundedIcon fontSize="large" /></IconButton>
+                <IconButton onClick={this.clear} disabled={this.state.isRunning} color="inherit"><RestartAltRoundedIcon fontSize="large" /></IconButton>
+                <FormControl disabled={this.state.isRunning}>
                     <InputLabel id="algorithm--select-label">Algorithm</InputLabel>
                     <Select
                         labelId="algorithm-select-label"
@@ -148,8 +180,8 @@ export class Game extends React.Component<GameProps, GameState> {
                         <MenuItem value={new AStar().name}>{new AStar().name}</MenuItem>
                     </Select>
                 </FormControl>
-                <FormControl>
-                    <InputLabel id="strategy--select-label">Move Strategy</InputLabel>
+                <FormControl disabled={this.state.isRunning}>
+                    <InputLabel id="strategy-select-label">Move Strategy</InputLabel>
                     <Select
                         labelId="strategy-select-label"
                         id="strategy-select"
