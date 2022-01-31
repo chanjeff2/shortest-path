@@ -12,6 +12,6 @@ export const ThemeChanger = () => {
     if (!mounted) return null
 
     return (
-        <FormControlLabel defaultChecked control={<Switch onChange={event => setTheme(event.target.checked ? "dark" : "light")} />} label="Dark Mode" />
+        <FormControlLabel control={<Switch defaultChecked onChange={event => setTheme(event.target.checked ? "dark" : "light")} />} label="Dark Mode" />
     )
 }
