@@ -34,8 +34,8 @@ a {
 
 [data-theme='dark'] {
   --background: rgb(36, 41, 46);
-  --foreground: rgb(157, 165, 180);
-  --foreground-inline: 255, 255, 255;
+  --foreground: rgba(157, 165, 180);
+  --foreground-inline: 157, 165, 180;
   --red: #e57373;
   --red-border: #ffcdd2;
   --green: #81c784;
