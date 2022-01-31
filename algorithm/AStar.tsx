@@ -3,7 +3,7 @@ import { Path } from "../models/Path";
 import { Normal } from "../models/Normal";
 import { Wall } from "../models/Wall";
 import { ShortestPathAlgorithm } from "../algorithm/ShortestPathAlgorithm";
-import { delay, interval } from "../util";
+import { delay } from "../util";
 
 export class AStar extends ShortestPathAlgorithm {
     name: string = "A*";
@@ -21,7 +21,7 @@ export class AStar extends ShortestPathAlgorithm {
                 setState(() => {
                     cell.type = new Path();
                 });
-                await delay(interval);
+                await delay(this.interval);
             }
             path.unshift(cell);
             cell = parent[cell.location.row][cell.location.col];
@@ -55,7 +55,7 @@ export class AStar extends ShortestPathAlgorithm {
             setState(() => {
                 cell.markProcessed();
             });
-            await delay(interval);
+            await delay(this.interval);
             let neighbors = this.getNeighbors(cell, board);
             for (let neighbor of neighbors) {
                 if (processed.has(neighbor) /*|| pending.find(e => e == neighbor)*/) {
@@ -82,7 +82,7 @@ export class AStar extends ShortestPathAlgorithm {
                     return parent;
                 }
                 pending.push(neighbor);
-                await delay(interval);
+                await delay(this.interval);
             }
 
         }

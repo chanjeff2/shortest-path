@@ -127,6 +127,7 @@ export class Game extends React.Component<GameProps, GameState> {
                         onChange={(event) => {
                             this.reset()
                             let strategy = this.state.algorithm.moveStrategy!
+                            let interval = this.state.algorithm.interval
                             let algorithm: ShortestPathAlgorithm
                             switch (event.target.value) {
                                 case new BFS().name:
@@ -139,6 +140,7 @@ export class Game extends React.Component<GameProps, GameState> {
                                     return;
                             }
                             algorithm.setStrategy(strategy)
+                            algorithm.setInterval(interval)
                             this.setState({ algorithm: algorithm })
                         }}
                     >
@@ -170,6 +172,26 @@ export class Game extends React.Component<GameProps, GameState> {
                     >
                         <MenuItem value={new RLTBMove().name}>{new RLTBMove().name}</MenuItem>
                         <MenuItem value={new EightDirectionsMove().name}>{new EightDirectionsMove().name}</MenuItem>
+                    </Select>
+                </FormControl>
+                <FormControl>
+                    <InputLabel id="interval-select-label">Interval</InputLabel>
+                    <Select
+                        labelId="interval-select-label"
+                        id="interval-select"
+                        value={this.state.algorithm.interval}
+                        label="Interval"
+                        onChange={(event) => {
+                            let input: number = Number(event.target.value)
+                            this.state.algorithm.setInterval(input)
+                            this.setState({ algorithm: this.state.algorithm })
+                        }}
+                    >
+                        <MenuItem value="0">0</MenuItem>
+                        <MenuItem value="10">10</MenuItem>
+                        <MenuItem value="50">50</MenuItem>
+                        <MenuItem value="100">100</MenuItem>
+                        <MenuItem value="200">200</MenuItem>
                     </Select>
                 </FormControl>
             </div>
