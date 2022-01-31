@@ -20,6 +20,7 @@ a {
 :root {
   /* Your default theme */
   --background: white;
+  --background-inline: 255, 255, 255;
   --foreground: #111;
   --foreground-inline: 0, 0, 0;
   --red: #ffcdd2;
@@ -34,6 +35,7 @@ a {
 
 [data-theme='dark'] {
   --background: rgb(36, 41, 46);
+  --background-inline: 36, 41, 46;
   --foreground: rgba(157, 165, 180);
   --foreground-inline: 157, 165, 180;
   --red: #e57373;
