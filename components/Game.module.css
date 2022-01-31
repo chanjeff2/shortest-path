@@ -1,0 +1,10 @@
+.game {
+    padding: 24px;
+}
+
+.toolbar {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}

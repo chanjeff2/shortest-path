@@ -1,0 +1,46 @@
+.tile {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+/* state */
+.unprocessed {
+    border-color: rgba(var(--foreground-inline), 0.1)
+}
+
+/* type */
+.normal {
+    background-color: transparent
+}
+
+.wall {
+    background-color: var(--red);
+    border-color: var(--red-border);
+}
+
+.target {
+    background-color: var(--green);
+    border-color: var(--green-border);
+}
+
+.source {
+    background-color: var(--blue);
+    border-color: var(--blue-border);
+}
+
+.path {
+    background-color: var(--yellow);
+    border-color: var(--yellow-border);
+}
+
+/* state */
+.pending {
+    border-color: rgba(var(--foreground-inline), 0.3)
+}
+
+.processed {
+    border-color: rgba(var(--foreground-inline), 1)
+}
