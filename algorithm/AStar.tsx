@@ -1,6 +1,6 @@
 import { Cell } from "../models/Cell";
 import { Path } from "../models/Path";
-import { Normal } from "../models/Normal";
+import { Basic } from "../models/Basic";
 import { Wall } from "../models/Wall";
 import { PathBlockedException, ShortestPathAlgorithm } from "../algorithm/ShortestPathAlgorithm";
 import { delay } from "../util";
@@ -17,7 +17,7 @@ export class AStar extends ShortestPathAlgorithm {
         let path: Cell[] = [];
         let cell: Cell = parent[target.location.row][target.location.col];
         while (cell !== source) {
-            if (cell.type instanceof Normal) {
+            if (cell.type instanceof Basic) {
                 setState(() => {
                     cell.type = new Path();
                 });

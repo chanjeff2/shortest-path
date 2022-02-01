@@ -3,7 +3,7 @@ import { useLongPress } from 'use-long-press';
 import { Cell } from "../models/Cell";
 import cn from 'classnames'
 import { Wall } from "../models/Wall";
-import { Normal } from "../models/Normal";
+import { Basic } from "../models/Basic";
 import { Path } from "../models/Path";
 import { Source } from "../models/Source";
 import { Target } from "../models/Target";
@@ -23,7 +23,7 @@ export function Tile(props: TileProps): JSX.Element {
         threshold: 200
     })
     return (<div className={`${styles.tile} ${cn({
-        [styles.normal]: props.cell.type instanceof Normal,
+        [styles.basic]: props.cell.type instanceof Basic,
         [styles.wall]: props.cell.type instanceof Wall,
         [styles.path]: props.cell.type instanceof Path,
         [styles.source]: props.cell.type instanceof Source,

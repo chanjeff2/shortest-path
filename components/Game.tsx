@@ -4,7 +4,7 @@ import styles from "./Game.module.css"
 import { Location } from "../models/Location"
 import { Cell } from "../models/Cell";
 import { Path } from "../models/Path";
-import { Normal } from "../models/Normal";
+import { Basic } from "../models/Basic";
 import { Source } from "../models/Source";
 import { UnProcessed } from "../models/UnProcessed";
 import { Target } from "../models/Target";
@@ -126,7 +126,7 @@ export class Game extends React.Component<GameProps, GameState> {
             for (let cell of row) {
                 cell.state = new UnProcessed()
                 if (cell.type instanceof Path) {
-                    cell.type = new Normal()
+                    cell.type = new Basic()
                 }
             }
         }

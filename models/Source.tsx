@@ -1,9 +1,9 @@
 import { Cell } from "./Cell";
 import { CellType } from "./CellType";
-import { Normal } from "./Normal";
+import { Basic } from "./Basic";
 
 export class Source implements CellType {
     onClick(cell: Cell): void {
-        cell.type = new Normal();
+        cell.type = new Basic();
     }
 }
