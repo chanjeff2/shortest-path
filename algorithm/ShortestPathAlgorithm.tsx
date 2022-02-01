@@ -1,6 +1,12 @@
 import { Cell } from "../models/Cell";
 import { MoveStrategy } from "../strategy/MoveStrategy";
 
+export class PathBlockedException extends Error {
+    constructor() {
+        super("path is blocked. cannot reach target")
+    }
+}
+
 export abstract class ShortestPathAlgorithm {
     moveStrategy: MoveStrategy | null = null;
     interval: number = 100

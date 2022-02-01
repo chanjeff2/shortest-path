@@ -2,7 +2,7 @@ import { Cell } from "../models/Cell";
 import { Path } from "../models/Path";
 import { Normal } from "../models/Normal";
 import { Wall } from "../models/Wall";
-import { ShortestPathAlgorithm } from "./ShortestPathAlgorithm";
+import { PathBlockedException, ShortestPathAlgorithm } from "./ShortestPathAlgorithm";
 import { delay } from "../util";
 
 export class BFS extends ShortestPathAlgorithm {
@@ -60,6 +60,6 @@ export class BFS extends ShortestPathAlgorithm {
             }
 
         }
-        throw Error("cannot reach target");
+        throw new PathBlockedException();
     }
 }

@@ -2,7 +2,7 @@ import { Cell } from "../models/Cell";
 import { Path } from "../models/Path";
 import { Normal } from "../models/Normal";
 import { Wall } from "../models/Wall";
-import { ShortestPathAlgorithm } from "../algorithm/ShortestPathAlgorithm";
+import { PathBlockedException, ShortestPathAlgorithm } from "../algorithm/ShortestPathAlgorithm";
 import { delay } from "../util";
 
 export class AStar extends ShortestPathAlgorithm {
@@ -70,7 +70,6 @@ export class AStar extends ShortestPathAlgorithm {
                 }
                 let newCost = cost[cell.location.row][cell.location.col] + this.calculateHeuristics(cell, neighbor);
                 if (cost[neighbor.location.row][neighbor.location.col] < newCost) {
-                    console.log("update");
                     continue;
                 }
                 cost[neighbor.location.row][neighbor.location.col] = newCost;
@@ -86,6 +85,6 @@ export class AStar extends ShortestPathAlgorithm {
             }
 
         }
-        throw Error("cannot reach target");
+        throw new PathBlockedException();
     }
 }

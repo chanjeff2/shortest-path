@@ -12,7 +12,7 @@ import { FormControl, IconButton, InputLabel, MenuItem, Select } from "@mui/mate
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
 import StopRoundedIcon from '@mui/icons-material/StopRounded';
-import { ShortestPathAlgorithm } from "../algorithm/ShortestPathAlgorithm";
+import { PathBlockedException, ShortestPathAlgorithm } from "../algorithm/ShortestPathAlgorithm";
 import { BFS } from "../algorithm/BFS";
 import { AStar } from "../algorithm/AStar";
 import { RLTBMove } from "../strategy/RLTBMove";
@@ -98,10 +98,16 @@ export class Game extends React.Component<GameProps, GameState> {
         try {
             await this.state.algorithm.execute(this.state.board, this.state.source, this.state.target, this.updateUI.bind(this))
         } catch (e) {
-            if (e instanceof StopInterruptException) {
-                this.setState({ stop: false })
-            } else {
-                throw e
+            if (!(e instanceof Error)) throw e
+            switch (e.constructor) {
+                case StopInterruptException:
+                    this.setState({ stop: false });
+                    break;
+                case PathBlockedException:
+                    alert(e.message)
+                    break;
+                default:
+                    throw e;
             }
         }
         this.setState({ isRunning: false })
