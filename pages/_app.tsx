@@ -40,7 +40,19 @@ function getMuiTheme(): Theme {
 
 
 function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <ThemeProvider>
+      <MuiWrapper>
+        <Component {...pageProps} />
+      </MuiWrapper>
+    </ThemeProvider>
+  )
+}
+
+function MuiWrapper({ children }: { children: JSX.Element }) {
+  const [mounted, setMounted] = useState(false)
   const [muiTheme, setMuiTheme] = useState<Theme | null>(null);
+
   const colorMode: ColorModeContextInterface = {
     toggleColorMode: () => {
       let theme = getMuiTheme()
@@ -48,20 +60,21 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }
 
-  useEffect(() => {
-    colorMode.toggleColorMode()
-  }, [])
+  // When mounted on client, now we can show the UI
+  useEffect(() => setMounted(true), [])
 
-  if (!muiTheme) return null
+  if (!mounted) return null
+
+  if (!muiTheme) {
+    colorMode.toggleColorMode()
+  }
 
   return (
-    <ThemeProvider>
-      <ColorModeContext.Provider value={colorMode}>
-        <MuiThemeProvider theme={muiTheme}>
-          <Component {...pageProps} />
-        </MuiThemeProvider>
-      </ColorModeContext.Provider>
-    </ThemeProvider>
+    <ColorModeContext.Provider value={colorMode}>
+      <MuiThemeProvider theme={muiTheme!}>
+        {children}
+      </MuiThemeProvider>
+    </ColorModeContext.Provider>
   )
 }
 
