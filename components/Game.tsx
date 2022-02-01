@@ -88,6 +88,9 @@ export class Game extends React.Component<GameProps, GameState> {
     }
 
     longTap(cell: Cell): void {
+        if (cell.type instanceof Target) {
+            this.setState({ target: null })
+        }
         this.state.source?.onClick()
         cell.onLongTap()
         this.setState({ source: cell, board: this.state.board.slice() })
