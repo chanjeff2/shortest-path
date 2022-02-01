@@ -6,13 +6,19 @@ import { Pending } from "./CellState/Pending"
 import { Processed } from "./CellState/Processed"
 import { Source } from "./CellType/Source"
 import { UnProcessed } from "./CellState/UnProcessed"
+import { CellTerrain } from "./CellTerrain"
+import { Ground } from "./CellTerrain/Ground"
 
 export class Cell {
     type: CellType = new Basic()
     state: CellState = new UnProcessed()
+    terrain: CellTerrain = new Ground()
     location: Location
     constructor(location: Location) {
         this.location = location
+    }
+    travelCost(): number {
+        return this.terrain.travelCost
     }
     onClick(): void {
         this.type.onClick(this)

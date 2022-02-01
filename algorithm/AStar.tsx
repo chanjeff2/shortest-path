@@ -68,7 +68,7 @@ export class AStar extends ShortestPathAlgorithm {
                     });
                     continue;
                 }
-                let newCost = cost[cell.location.row][cell.location.col] + this.calculateHeuristics(cell, neighbor);
+                let newCost = cost[cell.location.row][cell.location.col] + neighbor.travelCost();
                 if (cost[neighbor.location.row][neighbor.location.col] < newCost) {
                     continue;
                 }
