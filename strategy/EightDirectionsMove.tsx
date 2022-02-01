@@ -20,7 +20,9 @@ export class EightDirectionsMove implements MoveStrategy {
     calculateHeuristics(source: Cell, target: Cell): number {
         let dx = Math.abs(source.location.col - target.location.col);
         let dy = Math.abs(source.location.row - target.location.row);
+        let rltbMoveCost = 1;
+        let diagonalMoveCost = /* Math.sqrt(2) */ 1;
 
-        return (dx + dy) + (Math.sqrt(2) - 2) * Math.min(dx, dy);
+        return rltbMoveCost * (dx + dy) + (diagonalMoveCost - 2 * rltbMoveCost) * Math.min(dx, dy);
     }
 }
