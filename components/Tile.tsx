@@ -2,14 +2,14 @@ import styles from "./Tile.module.css"
 import { useLongPress } from 'use-long-press';
 import { Cell } from "../models/Cell";
 import cn from 'classnames'
-import { Wall } from "../models/Wall";
-import { Basic } from "../models/Basic";
-import { Path } from "../models/Path";
-import { Source } from "../models/Source";
-import { Target } from "../models/Target";
-import { Processed } from "../models/Processed";
-import { UnProcessed } from "../models/UnProcessed";
-import { Pending } from "../models/Pending";
+import { Wall } from "../models/CellType/Wall";
+import { Basic } from "../models/CellType/Basic";
+import { Path } from "../models/CellType/Path";
+import { Source } from "../models/CellType/Source";
+import { Target } from "../models/CellType/Target";
+import { Processed } from "../models/CellState/Processed";
+import { UnProcessed } from "../models/CellState/UnProcessed";
+import { Pending } from "../models/CellState/Pending";
 
 export interface TileProps {
     cell: Cell,

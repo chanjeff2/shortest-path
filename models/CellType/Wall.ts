@@ -1,5 +1,5 @@
-import { Cell } from "./Cell"
-import { CellType } from "./CellType"
+import { Cell } from "../Cell"
+import { CellType } from "."
 import { Target } from "./Target"
 
 export class Wall implements CellType {

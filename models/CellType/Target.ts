@@ -1,5 +1,5 @@
-import { Cell } from "./Cell"
-import { CellType } from "./CellType"
+import { Cell } from "../Cell"
+import { CellType } from "."
 import { Basic } from "./Basic"
 
 export class Target implements CellType {

@@ -1,13 +1,13 @@
 import { Dialog, DialogTitle, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { Cell, CustomCell } from "../models/Cell";
-import { Basic } from "../models/Basic";
-import { Path } from "../models/Path";
-import { Pending } from "../models/Pending";
-import { Processed } from "../models/Processed";
-import { Source } from "../models/Source";
-import { Target } from "../models/Target";
-import { UnProcessed } from "../models/UnProcessed";
-import { Wall } from "../models/Wall";
+import { Basic } from "../models/CellType/Basic";
+import { Path } from "../models/CellType/Path";
+import { Pending } from "../models/CellState/Pending";
+import { Processed } from "../models/CellState/Processed";
+import { Source } from "../models/CellType/Source";
+import { Target } from "../models/CellType/Target";
+import { UnProcessed } from "../models/CellState/UnProcessed";
+import { Wall } from "../models/CellType/Wall";
 import { Tile } from "./Tile";
 
 export interface GameHelpDialogProps {

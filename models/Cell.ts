@@ -1,11 +1,11 @@
 import { CellState } from "./CellState"
 import { CellType } from "./CellType"
 import { Location } from "../models/Location"
-import { Basic } from "./Basic"
-import { Pending } from "./Pending"
-import { Processed } from "./Processed"
-import { Source } from "./Source"
-import { UnProcessed } from "./UnProcessed"
+import { Basic } from "./CellType/Basic"
+import { Pending } from "./CellState/Pending"
+import { Processed } from "./CellState/Processed"
+import { Source } from "./CellType/Source"
+import { UnProcessed } from "./CellState/UnProcessed"
 
 export class Cell {
     type: CellType = new Basic()

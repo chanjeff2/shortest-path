@@ -3,11 +3,11 @@ import { Board } from "./Board";
 import styles from "./Game.module.css"
 import { Location } from "../models/Location"
 import { Cell } from "../models/Cell";
-import { Path } from "../models/Path";
-import { Basic } from "../models/Basic";
-import { Source } from "../models/Source";
-import { UnProcessed } from "../models/UnProcessed";
-import { Target } from "../models/Target";
+import { Path } from "../models/CellType/Path";
+import { Basic } from "../models/CellType/Basic";
+import { Source } from "../models/CellType/Source";
+import { UnProcessed } from "../models/CellState/UnProcessed";
+import { Target } from "../models/CellType/Target";
 import { FormControl, IconButton, InputLabel, MenuItem, Select } from "@mui/material";
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';

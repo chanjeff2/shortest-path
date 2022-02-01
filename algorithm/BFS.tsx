@@ -1,7 +1,7 @@
 import { Cell } from "../models/Cell";
-import { Path } from "../models/Path";
-import { Basic } from "../models/Basic";
-import { Wall } from "../models/Wall";
+import { Path } from "../models/CellType/Path";
+import { Basic } from "../models/CellType/Basic";
+import { Wall } from "../models/CellType/Wall";
 import { PathBlockedException, ShortestPathAlgorithm } from "./ShortestPathAlgorithm";
 import { delay } from "../util";
 
