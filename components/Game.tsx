@@ -12,11 +12,13 @@ import { FormControl, IconButton, InputLabel, MenuItem, Select } from "@mui/mate
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
 import StopRoundedIcon from '@mui/icons-material/StopRounded';
+import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
 import { PathBlockedException, ShortestPathAlgorithm } from "../algorithm/ShortestPathAlgorithm";
 import { BFS } from "../algorithm/BFS";
 import { AStar } from "../algorithm/AStar";
 import { RLTBMove } from "../strategy/RLTBMove";
 import { EightDirectionsMove } from "../strategy/EightDirectionsMove";
+import { GameHelpDialog } from "./GameHelpDialog";
 
 class StopInterruptException extends Error {
     constructor(message?: string) {
@@ -36,6 +38,7 @@ interface GameState {
     algorithm: ShortestPathAlgorithm,
     isRunning: boolean,
     stop: boolean,
+    isHelpOpened: boolean
 }
 
 export class Game extends React.Component<GameProps, GameState> {
@@ -53,6 +56,7 @@ export class Game extends React.Component<GameProps, GameState> {
             algorithm: algorithm,
             isRunning: false,
             stop: false,
+            isHelpOpened: false
         }
     }
 
@@ -141,6 +145,18 @@ export class Game extends React.Component<GameProps, GameState> {
         })
     }
 
+    showHelpDialog: () => void = () => {
+        this.setState({
+            isHelpOpened: true
+        })
+    }
+
+    hideHelpDialog: () => void = () => {
+        this.setState({
+            isHelpOpened: false
+        })
+    }
+
     updateUI(callback: () => void): void {
         if (this.state.stop) {
             throw new StopInterruptException()
@@ -152,9 +168,6 @@ export class Game extends React.Component<GameProps, GameState> {
     render(): React.ReactNode {
         return (<div className={styles.game}>
             <div className={styles.toolbar}>
-                <IconButton onClick={this.run} disabled={this.state.isRunning} color="inherit"><PlayArrowRoundedIcon fontSize="large" /></IconButton>
-                <IconButton onClick={this.stop} color="inherit"><StopRoundedIcon fontSize="large" /></IconButton>
-                <IconButton onClick={this.clear} disabled={this.state.isRunning} color="inherit"><RestartAltRoundedIcon fontSize="large" /></IconButton>
                 <FormControl disabled={this.state.isRunning}>
                     <InputLabel id="algorithm--select-label">Algorithm</InputLabel>
                     <Select
@@ -232,7 +245,12 @@ export class Game extends React.Component<GameProps, GameState> {
                         <MenuItem value="200">200</MenuItem>
                     </Select>
                 </FormControl>
+                <IconButton onClick={this.run} disabled={this.state.isRunning} color="inherit"><PlayArrowRoundedIcon fontSize="large" /></IconButton>
+                <IconButton onClick={this.stop} color="inherit"><StopRoundedIcon fontSize="large" /></IconButton>
+                <IconButton onClick={this.clear} disabled={this.state.isRunning} color="inherit"><RestartAltRoundedIcon fontSize="large" /></IconButton>
+                <IconButton onClick={this.showHelpDialog} color="inherit"><HelpOutlineRoundedIcon fontSize="large" /></IconButton>
             </div>
+            <GameHelpDialog open={this.state.isHelpOpened} onClose={this.hideHelpDialog} />
             <Board board={this.state.board} onClick={this.click.bind(this)} onLongTap={this.longTap.bind(this)} />
         </div>)
     }
