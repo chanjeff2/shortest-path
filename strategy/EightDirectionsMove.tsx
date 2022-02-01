@@ -21,7 +21,7 @@ export class EightDirectionsMove implements MoveStrategy {
         let dx = Math.abs(source.location.col - target.location.col);
         let dy = Math.abs(source.location.row - target.location.row);
         let rltbMoveCost = 1;
-        let diagonalMoveCost = /* Math.sqrt(2) */ 1;
+        let diagonalMoveCost = Math.sqrt(2);
 
         return rltbMoveCost * (dx + dy) + (diagonalMoveCost - 2 * rltbMoveCost) * Math.min(dx, dy);
     }
