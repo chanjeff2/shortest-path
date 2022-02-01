@@ -18,7 +18,7 @@ export const ThemeChanger = () => {
             label="Dark Mode"
             control={
                 <Switch
-                    defaultChecked
+                    checked={theme == "dark"}
                     onChange={event => {
                         setTheme(event.target.checked ? "dark" : "light")
                         colorMode.toggleColorMode()
