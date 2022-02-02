@@ -46,9 +46,8 @@ export class Dijkstra extends ShortestPathAlgorithm {
             pending.splice(pending.indexOf(cell), 1);
             processed.add(cell);
             setState(() => {
-                cell.markProcessed();
+                cell.markProcessing();
             });
-            await delay(this.interval);
             let neighbors = this.getNeighbors(cell, board);
             for (let neighbor of neighbors) {
                 if (processed.has(neighbor) || pending.find(e => e == neighbor)) {
@@ -71,12 +70,18 @@ export class Dijkstra extends ShortestPathAlgorithm {
                 });
                 parent[neighbor.location.row][neighbor.location.col] = cell;
                 if (neighbor === target) {
+                    setState(() => {
+                        cell.markProcessed();
+                    });
                     return parent;
                 }
                 pending.push(neighbor);
                 await delay(this.interval);
             }
-
+            setState(() => {
+                cell.markProcessed();
+            });
+            await delay(this.interval);
         }
         throw new PathBlockedException();
     }

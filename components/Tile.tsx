@@ -18,6 +18,7 @@ import mountain from "../public/mountain-no-bg-crop.gif"
 import chest from "../public/chest-no-bg-crop.gif"
 import { Rainy } from "../models/CellTerrain/Rainy";
 import { Forest } from "../models/CellTerrain/Forest";
+import { Processing } from "../models/CellState/Processing";
 
 export interface TileProps {
     cell: Cell,
@@ -96,6 +97,7 @@ export function Tile(props: TileProps): JSX.Element {
         [styles.target]: props.cell.type instanceof Target,
         [styles.unprocessed]: props.cell.state instanceof UnProcessed,
         [styles.pending]: props.cell.state instanceof Pending,
+        [styles.processing]: props.cell.state instanceof Processing,
         [styles.processed]: props.cell.state instanceof Processed,
     })}`} {...bind} onContextMenu={(e) => e.preventDefault()} >
         <CellImage cell={props.cell} />

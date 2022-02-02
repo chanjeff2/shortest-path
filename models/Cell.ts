@@ -9,6 +9,7 @@ import { UnProcessed } from "./CellState/UnProcessed"
 import { CellTerrain } from "./CellTerrain"
 import { Ground } from "./CellTerrain/Ground"
 import { Target } from "./CellType/Target"
+import { Processing } from "./CellState/Processing"
 
 export class Cell {
     type: CellType = new Basic()
@@ -38,6 +39,9 @@ export class Cell {
     }
     markPending(): void {
         this.state = new Pending()
+    }
+    markProcessing(): void {
+        this.state = new Processing()
     }
 }
 
