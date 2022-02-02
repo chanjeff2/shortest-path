@@ -14,7 +14,6 @@ import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
 import StopRoundedIcon from '@mui/icons-material/StopRounded';
 import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
 import { PathBlockedException, ShortestPathAlgorithm } from "../algorithm/ShortestPathAlgorithm";
-import { BFS } from "../algorithm/BFS";
 import { AStar } from "../algorithm/AStar";
 import { RLTBMove } from "../strategy/RLTBMove";
 import { EightDirectionsMove } from "../strategy/EightDirectionsMove";
@@ -47,7 +46,7 @@ export class Game extends React.Component<GameProps, GameState> {
     constructor(props: GameProps) {
         super(props)
 
-        let algorithm = new BFS()
+        let algorithm = new AStar()
         algorithm.setStrategy(new RLTBMove())
 
         this.state = {
@@ -195,9 +194,6 @@ export class Game extends React.Component<GameProps, GameState> {
                             let interval = this.state.algorithm.interval
                             let algorithm: ShortestPathAlgorithm
                             switch (event.target.value) {
-                                case new BFS().name:
-                                    algorithm = new BFS()
-                                    break;
                                 case new AStar().name:
                                     algorithm = new AStar()
                                     break;
@@ -212,7 +208,6 @@ export class Game extends React.Component<GameProps, GameState> {
                             this.setState({ algorithm: algorithm })
                         }}
                     >
-                        <MenuItem value={new BFS().name}>{new BFS().name}</MenuItem>
                         <MenuItem value={new AStar().name}>{new AStar().name}</MenuItem>
                         <MenuItem value={new Dijkstra().name}>{new Dijkstra().name}</MenuItem>
                     </Select>
