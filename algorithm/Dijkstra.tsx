@@ -25,8 +25,8 @@ export class Dijkstra extends ShortestPathAlgorithm {
         return path;
     }
 
-    getCost(source: Cell, cost: number[][]): number {
-        return cost[source.location.row][source.location.col]
+    getCost(cell: Cell, cost: number[][]): number {
+        return cost[cell.location.row][cell.location.col] + cell.travelCost()
     }
 
     async helper(board: Cell[][], source: Cell, target: Cell, setState: (callback: () => void) => void): Promise<Cell[][]> {

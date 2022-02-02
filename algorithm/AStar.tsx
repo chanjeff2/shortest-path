@@ -30,7 +30,7 @@ export class AStar extends ShortestPathAlgorithm {
     }
 
     getScore(source: Cell, target: Cell, cost: number[][]): number {
-        return cost[source.location.row][source.location.col] + this.calculateHeuristics(source, target);
+        return cost[source.location.row][source.location.col] + source.travelCost() + this.calculateHeuristics(source, target);
     }
 
     async helper(board: Cell[][], source: Cell, target: Cell, setState: (callback: () => void) => void): Promise<Cell[][]> {
