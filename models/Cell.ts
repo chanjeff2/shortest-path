@@ -23,6 +23,9 @@ export class Cell {
     onClick(): void {
         this.type.onClick(this)
     }
+    onRightClick(): void {
+        this.terrain.onClick(this)
+    }
     onLongTap(): void {
         this.type = new Source()
     }

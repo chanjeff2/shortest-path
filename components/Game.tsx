@@ -87,6 +87,11 @@ export class Game extends React.Component<GameProps, GameState> {
         this.setState({ board: this.state.board.slice() })
     }
 
+    rightClick(cell: Cell): void {
+        cell.onRightClick()
+        this.setState({ board: this.state.board.slice() })
+    }
+
     longTap(cell: Cell): void {
         if (cell.type instanceof Target) {
             this.setState({ target: null })
