@@ -67,6 +67,7 @@ function MuiWrapper({ children }: { children: JSX.Element }) {
 
   if (!muiTheme) {
     colorMode.toggleColorMode()
+    return null
   }
 
   return (

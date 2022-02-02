@@ -19,6 +19,7 @@ import { AStar } from "../algorithm/AStar";
 import { RLTBMove } from "../strategy/RLTBMove";
 import { EightDirectionsMove } from "../strategy/EightDirectionsMove";
 import { GameHelpDialog } from "./GameHelpDialog";
+import { Dijkstra } from "../algorithm/Dijkstra";
 
 class StopInterruptException extends Error {
     constructor(message?: string) {
@@ -200,6 +201,9 @@ export class Game extends React.Component<GameProps, GameState> {
                                 case new AStar().name:
                                     algorithm = new AStar()
                                     break;
+                                case new Dijkstra().name:
+                                    algorithm = new Dijkstra()
+                                    break;
                                 default:
                                     return;
                             }
@@ -210,6 +214,7 @@ export class Game extends React.Component<GameProps, GameState> {
                     >
                         <MenuItem value={new BFS().name}>{new BFS().name}</MenuItem>
                         <MenuItem value={new AStar().name}>{new AStar().name}</MenuItem>
+                        <MenuItem value={new Dijkstra().name}>{new Dijkstra().name}</MenuItem>
                     </Select>
                 </FormControl>
                 <FormControl disabled={this.state.isRunning}>
