@@ -12,8 +12,12 @@ import { UnProcessed } from "../models/CellState/UnProcessed";
 import { Pending } from "../models/CellState/Pending";
 import { Mountain } from "../models/CellTerrain/Mountain";
 import Image from "next/image"
+import rain from "../public/rain-no-bg.gif"
+import forest from "../public/tree.gif"
 import mountain from "../public/mountain-no-bg-crop.gif"
 import chest from "../public/chest-no-bg-crop.gif"
+import { Rainy } from "../models/CellTerrain/Rainy";
+import { Forest } from "../models/CellTerrain/Forest";
 
 export interface TileProps {
     cell: Cell,
@@ -94,11 +98,23 @@ export function Tile(props: TileProps): JSX.Element {
         [styles.pending]: props.cell.state instanceof Pending,
         [styles.processed]: props.cell.state instanceof Processed,
     })}`} {...bind} onContextMenu={(e) => e.preventDefault()} >
-        {props.cell.type instanceof Target &&
-            <Image src={chest} layout="fill" />
-        }
-        {!(props.cell.type instanceof Target) && props.cell.terrain instanceof Mountain &&
-            <Image src={mountain} layout="fill" />
-        }
+        <CellImage cell={props.cell} />
     </div>)
+}
+
+function CellImage({ cell }: { cell: Cell }): JSX.Element | null {
+    const { type, terrain } = cell
+    if (type instanceof Target) {
+        return <Image src={chest} layout="fill" />
+    }
+    if (terrain instanceof Rainy) {
+        return <Image src={rain} layout="fill" />
+    }
+    if (terrain instanceof Forest) {
+        return <Image src={forest} layout="fill" />
+    }
+    if (terrain instanceof Mountain) {
+        return <Image src={mountain} layout="fill" />
+    }
+    return null
 }
