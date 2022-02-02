@@ -17,13 +17,71 @@ import chest from "../public/chest-no-bg-crop.gif"
 
 export interface TileProps {
     cell: Cell,
-    onClick: (cell: Cell) => void,
-    onLongTap: (cell: Cell) => void
+    onLeftClick?: (cell: Cell) => void,
+    onMiddleClick?: (cell: Cell) => void,
+    onRightClick?: (cell: Cell) => void,
+    onAnyClick?: (cell: Cell) => void,
+    onAnyLongTap?: (cell: Cell) => void
+    onLongLeftPressed?: (cell: Cell) => void,
+    onLongMiddlePressed?: (cell: Cell) => void,
+    onLongRightPressed?: (cell: Cell) => void,
 }
 
 export function Tile(props: TileProps): JSX.Element {
-    const bind = useLongPress(() => props.onLongTap(props.cell), {
-        onCancel: (e) => props.onClick(props.cell),
+    const handleClick = (e: MouseEvent) => {
+        props.onAnyClick?.(props.cell)
+        switch (e.button) {
+            case 0:
+                props.onLeftClick?.(props.cell)
+                break;
+            case 1:
+                props.onMiddleClick?.(props.cell)
+                break;
+            case 2:
+                props.onRightClick?.(props.cell)
+                break;
+            default:
+                ;
+        }
+    }
+
+    const handleTouch = (e: TouchEvent) => {
+        // touch screen trigger touch event on touch, and on click on lifting up
+        // so probably won't support touch device
+    }
+
+    const handleLongPress = (e: MouseEvent) => {
+        props.onAnyLongTap?.(props.cell)
+        switch (e.button) {
+            case 0:
+                props.onLongLeftPressed?.(props.cell)
+                break;
+            case 1:
+                props.onLongMiddlePressed?.(props.cell)
+                break;
+            case 2:
+                props.onLongRightPressed?.(props.cell)
+                break;
+            default:
+                ;
+        }
+    }
+
+    const bind = useLongPress((e) => {
+        if (e?.nativeEvent instanceof TouchEvent) {
+
+        } else if (e?.nativeEvent instanceof MouseEvent) {
+            handleLongPress(e.nativeEvent)
+        }
+    }, {
+        captureEvent: true,
+        onCancel: e => {
+            if (e?.nativeEvent instanceof TouchEvent) {
+                handleTouch(e.nativeEvent)
+            } else if (e?.nativeEvent instanceof MouseEvent) {
+                handleClick(e.nativeEvent)
+            }
+        },
         threshold: 200
     })
     return (<div className={`${styles.tile} ${cn({

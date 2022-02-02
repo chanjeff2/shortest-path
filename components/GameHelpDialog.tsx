@@ -63,7 +63,7 @@ export function GameHelpDialog({ open, onClose }: GameHelpDialogProps) {
                 <TableBody>
                     {cellRows.map(({ cell, name, description, howToPlace }) => (
                         <TableRow>
-                            <TableCell><Tile cell={cell} onClick={() => { }} onLongTap={() => { }}></Tile></TableCell>
+                            <TableCell><Tile cell={cell}></Tile></TableCell>
                             <TableCell>{name}</TableCell>
                             <TableCell>{description}</TableCell>
                             <TableCell>{howToPlace}</TableCell>

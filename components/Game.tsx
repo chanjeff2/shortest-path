@@ -72,16 +72,16 @@ export class Game extends React.Component<GameProps, GameState> {
         return board
     }
 
-    click(cell: Cell): void {
+    leftClick(cell: Cell): void {
         if (cell.type instanceof Source) {
             this.setState({ source: null })
         }
         if (cell.type instanceof Target) {
             this.setState({ target: null })
         }
-        cell.onClick()
+        cell.onLeftClick()
         if (cell.type instanceof Target) {
-            this.state.target?.onClick()
+            this.state.target?.onLeftClick()
             this.setState({ target: cell })
         }
         this.setState({ board: this.state.board.slice() })
@@ -96,7 +96,7 @@ export class Game extends React.Component<GameProps, GameState> {
         if (cell.type instanceof Target) {
             this.setState({ target: null })
         }
-        this.state.source?.onClick()
+        this.state.source?.onLeftClick()
         cell.onLongTap()
         this.setState({ source: cell, board: this.state.board.slice() })
     }
@@ -259,7 +259,7 @@ export class Game extends React.Component<GameProps, GameState> {
                 <IconButton onClick={this.showHelpDialog} color="inherit"><HelpOutlineRoundedIcon fontSize="large" /></IconButton>
             </div>
             <GameHelpDialog open={this.state.isHelpOpened} onClose={this.hideHelpDialog} />
-            <Board board={this.state.board} onClick={this.click.bind(this)} onLongTap={this.longTap.bind(this)} />
+            <Board board={this.state.board} onLeftClick={this.leftClick.bind(this)} onRightClick={this.rightClick.bind(this)} onLongTap={this.longTap.bind(this)} />
         </div>)
     }
 }

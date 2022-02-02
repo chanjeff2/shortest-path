@@ -20,7 +20,7 @@ export class Cell {
     travelCost(): number {
         return this.terrain.travelCost
     }
-    onClick(): void {
+    onLeftClick(): void {
         this.type.onClick(this)
     }
     onRightClick(): void {

@@ -4,7 +4,8 @@ import { Cell } from "../models/Cell";
 
 export interface BoardProps {
     board: Cell[][],
-    onClick: (cell: Cell) => void,
+    onLeftClick: (cell: Cell) => void,
+    onRightClick: (cell: Cell) => void,
     onLongTap: (cell: Cell) => void
 }
 
@@ -14,7 +15,7 @@ export function Board(props: BoardProps): JSX.Element {
     for (let row of props.board) {
         let _row: Array<JSX.Element> = [];
         for (let cell of row) {
-            _row.push(<Tile key={id++} cell={cell} onClick={props.onClick} onLongTap={props.onLongTap} />)
+            _row.push(<Tile key={id++} cell={cell} onLeftClick={props.onLeftClick} onRightClick={props.onRightClick} onLongLeftPressed={props.onLongTap} />)
         }
         rows.push(<div key={id++} className={styles.row}>{_row}</div>);
     }
