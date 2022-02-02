@@ -74,9 +74,9 @@ export function GameHelpDialog({ open, onClose }: GameHelpDialogProps) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {cellRows.map(({ cell, name, description, howToPlace, showTravelCost }) => (
+                    {cellRows.map(({ cell, name, description, howToPlace, showTravelCost }, index) => (
                         <TableRow>
-                            <TableCell><Tile cell={cell}></Tile></TableCell>
+                            <TableCell><Tile key={index} cell={cell}></Tile></TableCell>
                             <TableCell>{name}</TableCell>
                             <TableCell>{description}</TableCell>
                             <TableCell>{showTravelCost ? cell.travelCost() : "-"}</TableCell>
