@@ -6,7 +6,8 @@ export interface BoardProps {
     board: Cell[][],
     onLeftClick: (cell: Cell) => void,
     onRightClick: (cell: Cell) => void,
-    onLongTap: (cell: Cell) => void
+    onLongLeftPressed: (cell: Cell) => void,
+    onLongRightPressed: (cell: Cell) => void,
 }
 
 export function Board(props: BoardProps): JSX.Element {
@@ -15,7 +16,14 @@ export function Board(props: BoardProps): JSX.Element {
     for (let row of props.board) {
         let _row: Array<JSX.Element> = [];
         for (let cell of row) {
-            _row.push(<Tile key={id++} cell={cell} onLeftClick={props.onLeftClick} onRightClick={props.onRightClick} onLongLeftPressed={props.onLongTap} />)
+            _row.push(<Tile
+                key={id++}
+                cell={cell}
+                onLeftClick={props.onLeftClick}
+                onRightClick={props.onRightClick}
+                onLongLeftPressed={props.onLongLeftPressed}
+                onLongRightPressed={props.onLongRightPressed}
+            />)
         }
         rows.push(<div key={id++} className={styles.row}>{_row}</div>);
     }

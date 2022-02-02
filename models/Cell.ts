@@ -8,6 +8,7 @@ import { Source } from "./CellType/Source"
 import { UnProcessed } from "./CellState/UnProcessed"
 import { CellTerrain } from "./CellTerrain"
 import { Ground } from "./CellTerrain/Ground"
+import { Target } from "./CellType/Target"
 
 export class Cell {
     type: CellType = new Basic()
@@ -20,14 +21,17 @@ export class Cell {
     travelCost(): number {
         return this.terrain.travelCost
     }
-    onLeftClick(): void {
+    onLeftClicked(): void {
         this.type.onClick(this)
     }
-    onRightClick(): void {
+    onRightClicked(): void {
         this.terrain.onClick(this)
     }
-    onLongTap(): void {
+    onLongLeftPressed(): void {
         this.type = new Source()
+    }
+    onLongRightPressed(): void {
+        this.type = new Target()
     }
     markProcessed(): void {
         this.state = new Processed()

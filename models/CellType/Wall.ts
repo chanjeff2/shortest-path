@@ -1,9 +1,9 @@
 import { Cell } from "../Cell"
 import { CellType } from "."
-import { Target } from "./Target"
+import { Basic } from "./Basic"
 
 export class Wall implements CellType {
     onClick(cell: Cell): void {
-        cell.type = new Target()
+        cell.type = new Basic()
     }
 }
