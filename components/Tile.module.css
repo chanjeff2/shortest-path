@@ -4,6 +4,8 @@
     border-radius: 10px;
     border-width: 1px;
     border-style: solid;
+    position: relative;
+    user-select: none;
 }
 
 /* state */

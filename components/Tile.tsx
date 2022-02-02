@@ -10,6 +10,10 @@ import { Target } from "../models/CellType/Target";
 import { Processed } from "../models/CellState/Processed";
 import { UnProcessed } from "../models/CellState/UnProcessed";
 import { Pending } from "../models/CellState/Pending";
+import { Mountain } from "../models/CellTerrain/Mountain";
+import Image from "next/image"
+import mountain from "../public/mountain-no-bg-crop.gif"
+import chest from "../public/chest-no-bg-crop.gif"
 
 export interface TileProps {
     cell: Cell,
@@ -31,5 +35,12 @@ export function Tile(props: TileProps): JSX.Element {
         [styles.unprocessed]: props.cell.state instanceof UnProcessed,
         [styles.pending]: props.cell.state instanceof Pending,
         [styles.processed]: props.cell.state instanceof Processed,
-    })}`} {...bind} ></div>)
+    })}`} {...bind} onContextMenu={(e) => e.preventDefault()} >
+        {props.cell.type instanceof Target &&
+            <Image src={chest} layout="fill" />
+        }
+        {!(props.cell.type instanceof Target) && props.cell.terrain instanceof Mountain &&
+            <Image src={mountain} layout="fill" />
+        }
+    </div>)
 }
