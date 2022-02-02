@@ -44,9 +44,11 @@ export class Cell {
 export class CustomCell extends Cell {
     type: CellType
     state: CellState
-    constructor(type?: CellType, state?: CellState) {
+    terrain: CellTerrain
+    constructor(type?: CellType, state?: CellState, terrain?: CellTerrain) {
         super(new Location(0, 0))
         this.type = type ?? new Basic()
         this.state = state ?? new UnProcessed()
+        this.terrain = terrain ?? new Ground()
     }
 }
