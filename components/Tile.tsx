@@ -105,16 +105,16 @@ export function Tile(props: TileProps): JSX.Element {
 function CellImage({ cell }: { cell: Cell }): JSX.Element | null {
     const { type, terrain } = cell
     if (type instanceof Target) {
-        return <Image src={chest} layout="fill" />
+        return <Image src={chest} layout="fill" alt="chest" />
     }
     if (terrain instanceof Rainy) {
-        return <Image src={rain} layout="fill" />
+        return <Image src={rain} layout="fill" alt="rain" />
     }
     if (terrain instanceof Forest) {
-        return <Image src={forest} layout="fill" />
+        return <Image src={forest} layout="fill" alt="tree" />
     }
     if (terrain instanceof Mountain) {
-        return <Image src={mountain} layout="fill" />
+        return <Image src={mountain} layout="fill" alt="mountain" />
     }
     return null
 }
